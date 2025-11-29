@@ -1,6 +1,8 @@
 import { Locator, Page } from '@playwright/test';
 export class LoginPage {
 
+    constructor(private readonly page: Page) {}
+    
     private getInputUsername(): Locator {
         return this.page.locator('#user-name');
     }
@@ -17,7 +19,6 @@ export class LoginPage {
         await this.page.goto('/');
     }
 
-    constructor(private readonly page: Page) {}
 
     public async login(username: string, password: string): Promise<void> {
         await this.getInputUsername().fill(username);
