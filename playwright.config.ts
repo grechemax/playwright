@@ -28,7 +28,6 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: 'https://www.saucedemo.com',
-    storageState: '.auth/storage-state-0.json',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -36,15 +35,32 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    {
+      name: 'setup', // This runs global.setup.ts first
+      testMatch: /global\.setup\.ts/,
+    },
+
+    {
+      name: 'authenticated-firefox',
+      use: { 
+        ...devices['Desktop Firefox'], 
+        storageState: '.auth/user.json' // Loads my saved auth state
+       },
+       dependencies: ['setup'], // Ensures setup runs before these tests
+    },
+
+    {
+      name: 'unauthenticated-firefox', // For tests without login (e.g., login page)
+      use: {
+        ...devices['Desktop Firefox'],
+        storageState: { cookies: [], origins: [] }, // Empty state = unauthenticated
+      },
+    },
+
     // {
     //   name: 'chromium',
     //   use: { ...devices['Desktop Chrome'] },
     // },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
 
     // {
     //   name: 'webkit',
