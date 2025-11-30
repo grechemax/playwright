@@ -1,23 +1,25 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../src/pages/login.page';
 import { InventoryPage } from '../src/pages/inventory.page';
-import { env } from 'process';
 
+// Unauthenticated test (run with --project=unauthenticated-firefox)
 test('Page has title', async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.open();
   await expect(page).toHaveTitle('Swag Labs');
-
-  await loginPage.login(0);
-
 });
 
-test('Add backpack to cart', async ({ page }) => {
+test('inventory page returns 404 status for unauthenticated users (response check)', async ({ page }) => {
   const inventoryPage = new InventoryPage(page);
+  const response = await inventoryPage.openAndExpectResponse();
 
-  await inventoryPage.open();
-  await inventoryPage.addBackpack();
-  await inventoryPage.addTShirt();
-})
+  expect(response.status()).toBe(404);
+  
+  await expect(page.locator('button[class=\'error-button\']')).toBeVisible();
+});
+
+
+
+
 
