@@ -1,8 +1,7 @@
 import { Locator, Page } from '@playwright/test';
-import path from 'path';
 export class LoginPage {
 
-    constructor(private readonly page: Page) {}
+    constructor(readonly page: Page) {}
 
     public async open(): Promise<void> {
         await this.page.goto('/');

@@ -1,7 +1,6 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, Response } from '@playwright/test';
 export class InventoryPage {
-
-    constructor(private readonly page: Page) {}
+    constructor(readonly page: Page) {}
 
     public async open(): Promise<void> {
         await this.page.goto('/inventory.html');
@@ -21,6 +20,20 @@ export class InventoryPage {
 
     public async addTShirt(): Promise<void> {
         await this.getBoltTShirt().click();
-    }   
+    }
 
+    public async openAndExpectResponse(): Promise<Response> {
+        const [response] = await Promise.all([
+            this.page.waitForResponse((resp) => resp.url().includes('/inventory.html') && resp.request().method() === 'GET'),
+            this.page.goto('/inventory.html') // triggers the GET request
+        ]);
+        return response;
+    }
+
+    public async itemsInCart(): Promise<string> {
+        const badge = this.page.locator('.shopping_cart_badge');
+        await badge.waitFor({ state: 'visible' });
+        const badgeText = await badge.textContent();
+        return badgeText ?? '';
+    }
 }
