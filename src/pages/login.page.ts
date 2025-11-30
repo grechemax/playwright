@@ -1,8 +1,13 @@
 import { Locator, Page } from '@playwright/test';
+import path from 'path';
 export class LoginPage {
 
     constructor(private readonly page: Page) {}
-    
+
+    public async open(): Promise<void> {
+        await this.page.goto('/');
+    }
+
     private getInputUsername(): Locator {
         return this.page.locator('#user-name');
     }
@@ -15,14 +20,13 @@ export class LoginPage {
         return this.page.locator('#login-button');
     }
 
-    public async open(): Promise<void> {
-        await this.page.goto('/');
-    }
-
-
-    public async login(username: string, password: string): Promise<void> {
+    public async login(workerId: number): Promise<void> {
+        const username = process.env.USERNAME!;
+        const password = process.env.PASSWORD!;
         await this.getInputUsername().fill(username);
         await this.getInputPassword().fill(password);
         await this.getButtonLogin().click();
+
+        await this.page.context().storageState({path : `.auth/storage-state-${workerId}.json`});
     }
 }
