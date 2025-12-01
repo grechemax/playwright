@@ -1,4 +1,5 @@
 import { Locator, Page, Response } from '@playwright/test';
+
 export class InventoryPage {
     constructor(readonly page: Page) {}
 
@@ -35,5 +36,9 @@ export class InventoryPage {
         await badge.waitFor({ state: 'visible' });
         const badgeText = await badge.textContent();
         return badgeText ?? '';
+    }
+
+    public async countInventoryItems(): Promise<number> { 
+        return this.page.locator('.inventory_item').count(); 
     }
 }

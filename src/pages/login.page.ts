@@ -1,6 +1,5 @@
 import { Locator, Page } from '@playwright/test';
 export class LoginPage {
-
     constructor(readonly page: Page) {}
 
     public async open(): Promise<void> {
@@ -26,6 +25,6 @@ export class LoginPage {
         await this.getInputPassword().fill(password);
         await this.getButtonLogin().click();
 
-        await this.page.context().storageState({path : `.auth/storage-state-${workerId}.json`});
+        await this.page.context().storageState({ path: `.auth/storage-state-${workerId}.json` });
     }
 }

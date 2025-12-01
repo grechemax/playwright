@@ -1,8 +1,7 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
-import stylistic  from '@stylistic/eslint-plugin';
-
+import stylistic from '@stylistic/eslint-plugin';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -58,7 +57,7 @@ export default [
             '@stylistic/space-before-blocks': ['error', 'always'],
             '@stylistic/arrow-spacing': 'error',
             '@stylistic/comma-spacing': ['error', { before: false, after: true }],
-            '@stylistic/keyword-spacing': ['error', { before: true, after: true }],
+            '@stylistic/keyword-spacing': ['error', { before: true, after: true }]
         }
     }
 ];
