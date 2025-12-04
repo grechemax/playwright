@@ -38,7 +38,7 @@ export class InventoryPage {
         return badgeText ?? '';
     }
 
-    public async countInventoryItems(): Promise<number> { 
-        return this.page.locator('.inventory_item').count(); 
+    public async countInventoryItems(): Promise<number> {
+        return this.page.locator('.inventory_item').count();
     }
 }
