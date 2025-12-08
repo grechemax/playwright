@@ -13,13 +13,13 @@ export class ItemCardComponent {
         this.description = this.cardLocator.locator('.inventory_item_desc');
     }
 
-   async getComponentData(): Promise<ItemCardDTO> {
-  return { 
-    name : (await this.name.textContent()) ?? '',
-    price : (await this.price.textContent()) ?? '', 
-    description : (await this.description.textContent()) ?? '' 
-};
-}
+    async getComponentData(): Promise<ItemCardDTO> {
+        return {
+            name: (await this.name.textContent()) ?? '',
+            price: (await this.price.textContent()) ?? '',
+            description: (await this.description.textContent()) ?? ''
+        };
+    }
 
     async clickToDetails(): Promise<void> {
         await this.name.click();

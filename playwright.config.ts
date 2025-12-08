@@ -37,7 +37,7 @@ export default defineConfig({
     projects: [
         // This runs global.setup.ts first
         // {
-        //     name: 'setup', 
+        //     name: 'setup',
         //     testMatch: /global\.setup\.ts/
         // },
 
@@ -48,7 +48,7 @@ export default defineConfig({
         //         storageState: '.auth/user.json' // Loads my saved auth state
         //     },
         //     // Ensures setup runs before these tests
-        //     dependencies: ['setup'] 
+        //     dependencies: ['setup']
         // },
 
         {
