@@ -23,7 +23,7 @@ export default defineConfig({
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-    reporter: 'list',
+    reporter: [['html'], ['allure-playwright']],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('')`. */
@@ -40,29 +40,29 @@ export default defineConfig({
         //     name: 'setup',
         //     testMatch: /global\.setup\.ts/
         // },
-
+        /*This project is not needed with fixtures: 
+        we don't rely on storageState */
         // {
-        //     name: 'authenticated-firefox',
+        //     name: 'unauthenticated-firefox', // For tests without login (e.g., login page)
         //     use: {
         //         ...devices['Desktop Firefox'],
-        //         storageState: '.auth/user.json' // Loads my saved auth state
-        //     },
-        //     // Ensures setup runs before these tests
-        //     dependencies: ['setup']
+        //         storageState: { cookies: [], origins: [] } // Empty state = unauthenticated
+        //     }
         // },
 
         {
-            name: 'unauthenticated-firefox', // For tests without login (e.g., login page)
+            name: 'firefox',
             use: {
-                ...devices['Desktop Firefox'],
-                storageState: { cookies: [], origins: [] } // Empty state = unauthenticated
+                ...devices['Desktop Firefox']
+                // storageState: '.auth/user.json' // Loads my saved auth state (used with global setup, not fixtures)
             }
-        }
+            // dependencies: ['setup'] // Ensures setup runs before these tests (used with global setup, not fixtures)
+        },
 
-        // {
-        //   name: 'chromium',
-        //   use: { ...devices['Desktop Chrome'] },
-        // },
+        {
+            name: 'chromium',
+            use: { ...devices['Desktop Chrome'] }
+        }
 
         // {
         //   name: 'webkit',
