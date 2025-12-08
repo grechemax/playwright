@@ -35,19 +35,21 @@ export default defineConfig({
 
     /* Configure projects for major browsers */
     projects: [
-        {
-            name: 'setup', // This runs global.setup.ts first
-            testMatch: /global\.setup\.ts/
-        },
+        // This runs global.setup.ts first
+        // {
+        //     name: 'setup', 
+        //     testMatch: /global\.setup\.ts/
+        // },
 
-        {
-            name: 'authenticated-firefox',
-            use: {
-                ...devices['Desktop Firefox'],
-                storageState: '.auth/user.json' // Loads my saved auth state
-            },
-            dependencies: ['setup'] // Ensures setup runs before these tests
-        },
+        // {
+        //     name: 'authenticated-firefox',
+        //     use: {
+        //         ...devices['Desktop Firefox'],
+        //         storageState: '.auth/user.json' // Loads my saved auth state
+        //     },
+        //     // Ensures setup runs before these tests
+        //     dependencies: ['setup'] 
+        // },
 
         {
             name: 'unauthenticated-firefox', // For tests without login (e.g., login page)

@@ -18,13 +18,11 @@ export class LoginPage {
         return this.page.locator('#login-button');
     }
 
-    public async login(workerId: number): Promise<void> {
-        const username = process.env.USERNAME!;
-        const password = process.env.PASSWORD!;
+    public async login(username: string, password: string): Promise<void> {
         await this.getInputUsername().fill(username);
         await this.getInputPassword().fill(password);
         await this.getButtonLogin().click();
 
-        await this.page.context().storageState({ path: `.auth/storage-state-${workerId}.json` });
+        await this.page.context().storageState({ path: `.auth/user.json` });
     }
 }
