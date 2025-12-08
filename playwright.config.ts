@@ -23,7 +23,12 @@ export default defineConfig({
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-    reporter: [['html'], ['allure-playwright']],
+    reporter: [
+        ['html'], // Built-in Playwright HTML report (interactive, with traces)
+        ['line'], // Simple console line output during runs
+        ['allure-playwright'], // Generates allure-results/ for later serving
+        ['pwmochawesome', { outputDir: './mochawesome-report' }] // Mochawesome-style JSON/HTML in custom dir
+    ],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('')`. */
@@ -62,12 +67,12 @@ export default defineConfig({
         {
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] }
-        }
+        },
 
-        // {
-        //   name: 'webkit',
-        //   use: { ...devices['Desktop Safari'] },
-        // },
+        {
+            name: 'webkit',
+            use: { ...devices['Desktop Safari'] }
+        }
 
         /* Test against mobile viewports. */
         // {
