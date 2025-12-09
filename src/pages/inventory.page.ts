@@ -1,4 +1,6 @@
 import { Locator, Page, Response } from '@playwright/test';
+import { ItemCardComponent } from './components/ItemCardComponent';
+import { ItemCardDTO } from '../models/ItemCardDTO';
 
 export class InventoryPage {
     private readonly inventoryItems = this.page.locator('.inventory_item');
@@ -31,7 +33,7 @@ export class InventoryPage {
     public async openAndExpectResponse(): Promise<Response> {
         const [response] = await Promise.all([
             this.page.waitForResponse((resp) => resp.url().includes('/inventory.html') && resp.request().method() === 'GET'),
-            this.page.goto('/inventory.html') // triggers the GET request
+            this.page.goto('/inventory.html')
         ]);
         return response;
     }
@@ -43,6 +45,28 @@ export class InventoryPage {
     }
 
     public async countInventoryItems(): Promise<number> {
-        return this.inventoryItems.count();
+        return await this.inventoryItems.count();
+    }
+
+    public async getAllItemCards(): Promise<ItemCardComponent[]> {
+        const cards: ItemCardComponent[] = [];
+        for (let i = 0; i < (await this.countInventoryItems()); i++) {
+            const itemRoot = this.inventoryItems.nth(i); // Particular item via nth
+            cards.push(new ItemCardComponent(this.page, itemRoot));
+        }
+        return cards;
+    }
+
+    public async getAllItemCardDTOs(): Promise<ItemCardDTO[]> {
+        const dtos: ItemCardDTO[] = [];
+        const cards = await this.getAllItemCards();
+        for (const card of cards) {
+            dtos.push({
+                name: (await card.getComponentData()).name,
+                price: (await card.getComponentData()).price,
+                description: (await card.getComponentData()).description
+            });
+        }
+        return dtos;
     }
 }

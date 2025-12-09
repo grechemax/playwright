@@ -1,7 +1,7 @@
 import { test as setup } from '@playwright/test';
-import path from 'path'; // Add this for absolute path if needed
+import path from 'path';
 
-const authFile = path.join(__dirname, '../.auth/user.json'); // Adjust if your path differs
+const authFile = path.join(__dirname, '../.auth/user.json');
 
 setup('authenticate', async ({ page }) => {
     await page.goto('/');

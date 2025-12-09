@@ -23,7 +23,7 @@ export default defineConfig({
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-    reporter: 'list',
+    reporter: [['html'], ['allure-playwright']],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('')`. */
@@ -35,32 +35,34 @@ export default defineConfig({
 
     /* Configure projects for major browsers */
     projects: [
-        {
-            name: 'setup', // This runs global.setup.ts first
-            testMatch: /global\.setup\.ts/
-        },
-
-        {
-            name: 'authenticated-firefox',
-            use: {
-                ...devices['Desktop Firefox'],
-                storageState: '.auth/user.json' // Loads my saved auth state
-            },
-            dependencies: ['setup'] // Ensures setup runs before these tests
-        },
-
-        {
-            name: 'unauthenticated-firefox', // For tests without login (e.g., login page)
-            use: {
-                ...devices['Desktop Firefox'],
-                storageState: { cookies: [], origins: [] } // Empty state = unauthenticated
-            }
-        }
-
+        // This runs global.setup.ts first
         // {
-        //   name: 'chromium',
-        //   use: { ...devices['Desktop Chrome'] },
+        //     name: 'setup',
+        //     testMatch: /global\.setup\.ts/
         // },
+        /*This project is not needed with fixtures: 
+        we don't rely on storageState */
+        // {
+        //     name: 'unauthenticated-firefox', // For tests without login (e.g., login page)
+        //     use: {
+        //         ...devices['Desktop Firefox'],
+        //         storageState: { cookies: [], origins: [] } // Empty state = unauthenticated
+        //     }
+        // },
+
+        {
+            name: 'firefox',
+            use: {
+                ...devices['Desktop Firefox']
+                // storageState: '.auth/user.json' // Loads my saved auth state (used with global setup, not fixtures)
+            }
+            // dependencies: ['setup'] // Ensures setup runs before these tests (used with global setup, not fixtures)
+        },
+
+        {
+            name: 'chromium',
+            use: { ...devices['Desktop Chrome'] }
+        }
 
         // {
         //   name: 'webkit',
