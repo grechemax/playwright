@@ -2,7 +2,6 @@ import { expect } from '@playwright/test';
 import { test } from '../src/fixtures/SauceDemoFixtures';
 import { InventoryPage } from '../src/pages/Inventory.page';
 
-// Unauthenticated test (run with --project=unauthenticated-firefox)
 test('Page has title', async ({ loginPage }) => {
     await loginPage.open();
     await expect(loginPage.page).toHaveTitle('Swag Labs');

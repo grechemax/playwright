@@ -28,24 +28,19 @@ test('Inventory page has 6 items', async ({ inventoryPage }) => {
     expect(inventoryItems).toEqual(6);
 });
 
-test('Compare all inventory items with their detail pages', async ({ inventoryPage, page }) => {
-    // Collect all items as cards
+test('Compare all inventory items with their detail pages', async ({ inventoryPage }) => {
     const cards = await inventoryPage.getAllItemCards();
 
     for (const card of cards) {
-        // Get data card component inventory page
         const inventoryDTO = await card.getComponentData();
 
-        // Open each detail page and get data
         await card.clickToDetails();
-        const detailPage = new ItemDetailsPage(page);
+        const detailPage = new ItemDetailsPage(inventoryPage.page);
         const detailDTO = await detailPage.getItemData();
 
-        // Compare data
         expect(detailDTO).toEqual(inventoryDTO);
 
-        // Go back to inventory for next loop
-        await page.goBack();
-        await page.waitForURL(/inventory.html/);
+        await inventoryPage.page.goBack();
+        await inventoryPage.page.waitForURL(/inventory.html/);
     }
 });
