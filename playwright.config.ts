@@ -45,7 +45,7 @@ export default defineConfig({
         //     name: 'setup',
         //     testMatch: /global\.setup\.ts/
         // },
-        /*This project is not needed with fixtures: 
+        /*This project is not needed with fixtures:
         we don't rely on storageState */
         // {
         //     name: 'unauthenticated-firefox', // For tests without login (e.g., login page)
