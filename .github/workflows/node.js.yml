@@ -21,14 +21,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm ci
     - name: Cache Playwright Browsers
       uses: actions/cache@v4
       with:
         path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
     - name: Install Playwright Browsers
-      run: npx playwright install chromium firefox webkit
-    - run: npm ci
+      run: npx playwright install --with-deps chromium firefox webkit
     - run: npm run build --if-present
     - run: npx playwright test
     - name: Upload Playwright Report
