@@ -33,7 +33,7 @@ jobs:
     - name: Clear auth cache
       run: rm -rf .auth
     - name: Run Playwright tests  
-    - run: npx playwright test
+      run: npx playwright test
       env:
         STANDARD_USER: ${{ secrets.STANDARD_USER }}
         PASSWORD: ${{ secrets.PASSWORD }}
