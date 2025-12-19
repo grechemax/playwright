@@ -1,7 +1,7 @@
 import { test as base, Page, Browser } from '@playwright/test';
-import { LoginPage } from '../pages/Login.page';
-import { InventoryPage } from '../pages/Inventory.page';
-import { CartPage } from '../pages/Cart.page';
+import { LoginPage } from '../pages/login.page';
+import { InventoryPage } from '../pages/inventory.page';
+import { CartPage } from '../pages/cart.page';
 import * as fs from 'fs';
 
 interface SauceDemoFixture {

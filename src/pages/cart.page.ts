@@ -1,7 +1,7 @@
-import { Locator, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class CartPage {
-    constructor(readonly page: Page) {}
+    public constructor(public readonly page: Page) {}
 
     public async open(): Promise<void> {
         await this.page.goto('/cart.html');

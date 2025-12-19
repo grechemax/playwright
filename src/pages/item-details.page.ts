@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import { ItemCardDTO } from '../models/ItemCardDTO';
+import { ItemCardDTO } from '../models/item-card-dto';
 
 export class ItemDetailsPage {
     private readonly name: Locator;
@@ -7,14 +7,14 @@ export class ItemDetailsPage {
     private readonly description: Locator;
     private readonly backToInventory;
 
-    constructor(readonly page: Page) {
+    public constructor(public readonly page: Page) {
         this.name = page.locator('[data-test="inventory-item-name"]');
         this.price = page.locator('[data-test="inventory-item-price"]');
         this.description = page.locator('[data-test="inventory-item-desc"]');
         this.backToInventory = this.page.locator('[data-test="back-to-products"]');
     }
 
-    async getItemData(): Promise<ItemCardDTO> {
+    public async getItemData(): Promise<ItemCardDTO> {
         return {
             name: (await this.name.textContent()) ?? '',
             price: (await this.price.textContent()) ?? '',
@@ -22,7 +22,7 @@ export class ItemDetailsPage {
         };
     }
 
-    async clickBackToInventory(): Promise<void> {
+    public async clickBackToInventory(): Promise<void> {
         await this.backToInventory.click();
     }
 }

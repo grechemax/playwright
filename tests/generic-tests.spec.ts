@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../src/fixtures/SauceDemoFixtures';
-import { ItemDetailsPage } from '../src/pages/ItemDetails.page';
+import { test } from '../src/fixtures/sauce-demo-fixtures';
+import { ItemDetailsPage } from '../src/pages/item-details.page';
 
 test.describe('Buy two items from inventory page', () => {
     test.beforeEach(async ({ inventoryPage }) => {

@@ -1,6 +1,6 @@
 import { Locator, Page, Response } from '@playwright/test';
-import { ItemCardComponent } from './components/ItemCardComponent';
-import { ItemCardDTO } from '../models/ItemCardDTO';
+import { ItemCardComponent } from './components/item-card-component';
+import { ItemCardDTO } from '../models/item-card-dto';
 
 export class InventoryPage {
     private readonly inventoryItems = this.page.locator('.inventory_item');
@@ -8,7 +8,7 @@ export class InventoryPage {
     private readonly tShirtItem = this.page.locator('#add-to-cart-sauce-labs-bolt-t-shirt');
     private readonly badge = this.page.locator('.shopping_cart_badge');
 
-    constructor(readonly page: Page) {}
+    public constructor(public readonly page: Page) {}
 
     public async open(): Promise<void> {
         await this.page.goto('/inventory.html');
