@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from '../src/fixtures/SauceDemoFixtures';
-import { InventoryPage } from '../src/pages/Inventory.page';
+import { test } from '../src/fixtures/sauce-demo-fixtures';
+import { InventoryPage } from '../src/pages/inventory.page';
 
 test('Page has title', async ({ loginPage }) => {
     await loginPage.open();
@@ -13,5 +13,5 @@ test('inventory page returns 404 status for unauthenticated users (response chec
 
     expect(response.status()).toBe(404);
 
-    await expect(page.locator("button[class='error-button']")).toBeVisible();
+    await expect(page.locator('button[class=\'error-button\']')).toBeVisible();
 });
