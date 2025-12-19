@@ -6,7 +6,7 @@
     "scripts": {
         "lint": "eslint . --ext .ts,.tsx",
         "lint:fix": "eslint . --ext .ts,.tsx --fix",
-        "pretest": "rm -rf .auth || rmdir /S /Q .auth"
+        "pretest": "rimraf .auth"
     },
     "repository": {
         "type": "git",
@@ -32,6 +32,7 @@
         "globals": "^16.5.0",
         "prettier": "^3.6.2",
         "pwmochawesome": "^2.0.2",
+        "rimraf": "^6.1.2",
         "ts-node": "^10.9.2",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.48.0"
