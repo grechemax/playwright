@@ -30,6 +30,9 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium firefox webkit
     - run: npm run build --if-present
+    - name: Clear auth cache
+      run: rm -rf .auth
+    - name: Run Playwright tests  
     - run: npx playwright test
       env:
         STANDARD_USER: ${{ secrets.STANDARD_USER }}
