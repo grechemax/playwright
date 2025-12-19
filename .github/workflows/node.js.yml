@@ -31,8 +31,11 @@ jobs:
       run: npx playwright install --with-deps chromium firefox webkit
     - run: npm run build --if-present
     - run: npx playwright test
+      env:
+        STANDARD_USER: ${{ secrets.STANDARD_USER }}
+        PASSWORD: ${{ secrets.PASSWORD }}
     - name: Upload Playwright Report
-      if: always()
+      if: ${{ !cancelled() }}
       uses: actions/upload-artifact@v4
       with:
         name: playwright-report-${{ matrix.node-version }}
