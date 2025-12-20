@@ -3,6 +3,7 @@ import { LoginPage } from '../pages/login.page';
 import { InventoryPage } from '../pages/inventory.page';
 import { CartPage } from '../pages/cart.page';
 import * as fs from 'fs';
+import { expect } from '@playwright/test';
 
 interface SauceDemoFixture {
     cartPage: CartPage;
@@ -26,7 +27,8 @@ async function authenticateSauceDemo(browser: Browser, workerId: number): Promis
     console.log('Open Login Page, URL is:', page.url());
     await loginPage.login(username, password);
     console.log('After Login, URL is:', page.url());
-    await page.waitForURL(/inventory.html/, { timeout: 5000 });
+    await page.screenshot({ path: 'debug-after-goto.png' });
+    await expect(page).toHaveURL(/inventory.html/, { timeout: 60000 });
 
     await page.context().storageState({ path: storageState(workerId) });
     console.log(`authenticated storage state saved to ${storageState(workerId)}`);
