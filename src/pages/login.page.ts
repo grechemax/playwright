@@ -3,7 +3,7 @@ export class LoginPage {
     public constructor(public readonly page: Page) {}
 
     public async open(): Promise<void> {
-        await this.page.goto('https://www.saucedemo.com/');
+        await this.page.goto('/');
     }
 
     private getInputUsername(): Locator {

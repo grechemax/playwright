@@ -23,9 +23,9 @@ async function authenticateSauceDemo(browser: Browser, workerId: number): Promis
     const password = process.env.PASSWORD!;
 
     await loginPage.open();
-    console.log('STANDARD_USER:', process.env.STANDARD_USER);
+    console.log('Open Login Page, URL is:', page.url());
     await loginPage.login(username, password);
-
+    console.log('After Login, URL is:', page.url());
     await page.waitForURL(/inventory.html/, { timeout: 5000 });
 
     await page.context().storageState({ path: storageState(workerId) });
