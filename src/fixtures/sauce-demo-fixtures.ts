@@ -20,8 +20,8 @@ async function authenticateSauceDemo(browser: Browser, workerId: number): Promis
     const context = await browser.newContext();
     const page = await context.newPage();
     const loginPage = new LoginPage(page);
-    const username = process.env.STANDARD_USER!;
-    const password = process.env.PASSWORD!;
+    const username = process.env.STANDARD_USER || 'standard_user';
+    const password = process.env.PASSWORD || 'secret_sauce';
 
     await loginPage.open();
     console.log('Open Login Page, URL is:', page.url());
