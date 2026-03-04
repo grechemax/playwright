@@ -12,6 +12,7 @@ interface SauceDemoFixture {
 }
 
 const storageState = (workerId: number): string => `.auth/storage-state-${workerId}.json`;
+const baseUrl = process.env.BASE_URL;
 
 async function authenticateSauceDemo(browser: Browser, workerId: number): Promise<void> {
     if (fs.existsSync(storageState(workerId))) return;
@@ -47,7 +48,7 @@ export const test = base.extend<SauceDemoFixture>({
         const context = await browser.newContext({ storageState: storageState(workerId) });
         const page = await context.newPage();
 
-        await page.goto('https://www.saucedemo.com/inventory.html');
+        await page.goto(`${baseUrl}/inventory.html`);
         await page.waitForURL(/inventory.html/, { timeout: 5000 });
         await use(page);
 
