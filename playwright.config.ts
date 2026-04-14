@@ -38,6 +38,9 @@ export default defineConfig({
         trace: 'on-first-retry'
     },
 
+    // globalSetup: './tests/global.setup.ts',
+    globalTeardown: './tests/global.teardown.ts',
+
     /* Configure projects for major browsers */
     projects: [
         // This runs global.setup.ts first
