@@ -14,7 +14,10 @@ interface SauceDemoFixture {
 const storageState = (workerId: number): string => `.auth/storage-state-${workerId}.json`;
 
 async function authenticateSauceDemo(browser: Browser, workerId: number): Promise<void> {
-    if (fs.existsSync(storageState(workerId))) return;
+    const authFile = storageState(workerId);
+    if (fs.existsSync(authFile)) return;
+
+    fs.mkdirSync('.auth', { recursive: true });
 
     const context = await browser.newContext();
     const page = await context.newPage();
