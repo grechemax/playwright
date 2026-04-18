@@ -3,6 +3,7 @@
     "exclude": ["eslint.config.mjs", "./build/**/*", "./node_modules/**/*"],
     "compilerOptions": {
         "baseUrl": "./",
+        "ignoreDeprecations": "6.0",
         "target": "ES6",
         "lib": ["es6", "DOM"],
         "module": "commonjs",
