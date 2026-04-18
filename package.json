@@ -25,6 +25,7 @@
         "@stylistic/eslint-plugin-ts": "^4.4.1",
         "@types/node": "^24.10.1",
         "allure-playwright": "^3.4.3",
+        "baseline-browser-mapping": "^2.10.20",
         "eslint": "^9.39.1",
         "eslint-plugin-prettier": "^5.5.4",
         "eslint-plugin-unicorn": "^62.0.0",
